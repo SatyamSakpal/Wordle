@@ -37,8 +37,8 @@ const App: React.FC = () => {
     ])
 
     useEffect(() => {
-        if(won) setGameStatus('won')
-        if(!won && guess >= MAX_GUESSES) setGameStatus('lost')
+        if(won) return setGameStatus('won')
+        if(!won && guess >= MAX_GUESSES) return setGameStatus('lost')
     }, [won, guess])
 
     // Custom hook to get the current window size for rendering the confetti effect
