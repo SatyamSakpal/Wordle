@@ -9,7 +9,7 @@ import { useWindowSize } from 'react-use'
 import Keyboard from './components/Keyboard'
 import SoundEffect from './components/SoundEffect'
 
-
+const FETCH_URL = 'http://localhost:3000/word/check'
 const MAX_GUESS_LENGTH = 5;
 const MAX_GUESSES = 5;
 
@@ -112,7 +112,7 @@ const App: React.FC = () => {
     // Function to check the current guess by sending it to the server
     const checkWord = async() => {
         try {
-            const response = await fetch('http://localhost:5000/word/check', {
+            const response = await fetch(FETCH_URL, {   
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
