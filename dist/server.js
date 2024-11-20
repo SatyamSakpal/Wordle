@@ -4,14 +4,12 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
-const cors_1 = __importDefault(require("cors"));
 const todaysWord_1 = __importDefault(require("./util/todaysWord"));
 const checkWord_1 = __importDefault(require("./util/checkWord"));
 const path = require('path');
 const app = (0, express_1.default)();
 require('dotenv').config();
 app.use(express_1.default.json());
-app.use((0, cors_1.default)());
 // console.log(checkWord('spice'))
 const PORT = process.env.PORT || 3000;
 app.use(express_1.default.static(path.join(__dirname, "../build")));
@@ -26,5 +24,5 @@ app.get('/word', (req, res) => {
     res.json(todaysWord_1.default);
 });
 app.listen(PORT, () => {
-    console.log('listening on Port: ', PORT);
+    console.log(`listening on Port: http://localhost:${PORT}`);
 });
