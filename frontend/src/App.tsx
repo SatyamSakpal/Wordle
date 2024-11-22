@@ -11,11 +11,11 @@ import SoundEffect from './components/SoundEffect'
 
 const FETCH_URL = 'http://localhost:3000/word/check'
 const MAX_GUESS_LENGTH = 5;
-const MAX_GUESSES = 5;
+const MAX_GUESSES = 6;
 
 const App: React.FC = () => {
     // State for tracking guessed words in a 2D array format, representing up to 5 guesses
-    const [guessedWord, setGuessedWord] = useState<string[][]>([[],[],[],[],[]])
+    const [guessedWord, setGuessedWord] = useState<string[][]>([[],[],[],[],[],[]])
 
      // State for tracking the number of guesses made by the user
     const [guess, setGuess] = useState<number>(0)
@@ -38,7 +38,7 @@ const App: React.FC = () => {
 
     useEffect(() => {
         if(won) return setGameStatus('won')
-        if(!won && guess >= MAX_GUESSES) return setGameStatus('lost')
+        else if(guess >= MAX_GUESSES) return setGameStatus('lost')
     }, [won, guess])
 
     // Custom hook to get the current window size for rendering the confetti effect
@@ -84,8 +84,7 @@ const App: React.FC = () => {
         // Handle 'Enter' key press to submit the guess
         if(e.key === 'Enter'){
             if(guessedWord[guess].length != MAX_GUESS_LENGTH && guess < MAX_GUESSES) return     
-            checkWord()
-            return setGuess(prevGuess => prevGuess+= 1)
+            return checkWord()
         }
         
         // Handle valid letter key presses and add to the current guess if under MAX_GUESS_LENGTHD characters
@@ -101,8 +100,7 @@ const App: React.FC = () => {
         // Handle 'Enter' key press to submit the guess
         if(key === 'Enter'){
             if(guessedWord[guess].length != MAX_GUESS_LENGTH) return // Ensure the guess has MAX_GUESS_LENGTH characters
-            checkWord() // Check the current guess with the server
-            return setGuess(prevGuess => prevGuess+= 1) // Increment the guess count
+            return checkWord() // Check the current guess with the server 
         }
         
         // Handle valid letter key presses and add to the current guess if under MAND_GUESS_LENGTH characters
@@ -124,6 +122,8 @@ const App: React.FC = () => {
             if(wordResult.isGuessed) setWon(true) // Set 'won' state if the word is guessed correctly
 
             updateResult(wordResult) // Update the result state
+
+            setGuess(prevGuess => prevGuess+= 1) // Increment the guess count
         } catch (error) {
             console.log(error)
         }
