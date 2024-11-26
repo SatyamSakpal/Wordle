@@ -24,5 +24,5 @@ app.get('/word', (req, res) => {
     res.json(todaysWord_1.default);
 });
 app.listen(PORT, () => {
-    console.log(`listening on Port: http://localhost:${PORT}`);
+    console.log('listening on Port: ', PORT);
 });
